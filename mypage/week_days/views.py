@@ -17,16 +17,8 @@ answers = {
 
 
 def number_day(request, day):
-    if 0 < day < 8:
-        day = list(answers)[day - 1]
-        redirect_url = reverse("day_of_week", args=[day])
-        return HttpResponseRedirect(redirect_url)
-    else:
-        return HttpResponseNotFound(f"{day} - нет такого дня")
+    return render(request, 'week_days/greeting.html')
 
 
 def list_todo(request, day):
-    answer = answers.get(day)
-    if answer:
-        return HttpResponse(answer)
-    return HttpResponseNotFound(f"{day} - нет такого дня")
+    return render(request, 'week_days/greeting.html')
