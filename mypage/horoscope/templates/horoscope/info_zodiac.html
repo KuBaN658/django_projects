@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Приложение гороскоп</title>
-</head>
-<body>
-    <h2>Близнецы - третий знак зодиака, планета Меркурий (с 22 мая по 21 июня).</h2>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} Знак зодиака {{ sign }} {% endblock %}
+
+{% block content %} {{ value }} {% endblock %}

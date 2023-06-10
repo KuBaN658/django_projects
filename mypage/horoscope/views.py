@@ -1,4 +1,5 @@
 from django.template.loader import render_to_string
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
@@ -44,20 +45,20 @@ class Zodiac:
         self.text = text
         self.group = group
 
-zodiacs = (Zodiac(zodiac[0], zodiac[1][0], zodiac[1][1]) for zodiac in zodiac_dict.items())
-
 
 def index(request):
-    res = ''
-    for key in zodiac_dict.keys():
-        url = reverse("horoscope-name", args=[key])
-        res += f'<li><h2><a href={url}>{key}</a></h2></li>'
-    return HttpResponse(f"<ol> {res} </ol>")
+    context = {
+        'zodiacs': list(zodiac_dict)
+    }
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def answer_for_sign(request, sign_zodiac: str):
-    response = render_to_string('horoscope/info_zodiac.html')
-    return HttpResponse(response)
+    context = {
+        'sign': sign_zodiac,
+        'value': zodiac_dict[sign_zodiac][0]
+    }
+    return render(request, 'horoscope/info_zodiac.html', context=context)
 
 
 def answer_for_int(request, sign_zodiac: int):
